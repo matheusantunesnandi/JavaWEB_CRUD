@@ -1,0 +1,8 @@
+util/HibernateUtil.class
+model/dao/DAOGenerico.class
+model/entity/Cruzeiro.class
+model/entity/Pessoa.class
+controller/CadastroPessoa.class
+model/entity/Embarcacao.class
+util/PropriedadesProjeto.class
+util/JDBCDriveListener.class

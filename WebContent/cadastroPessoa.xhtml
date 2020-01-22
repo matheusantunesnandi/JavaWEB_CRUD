@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<h:form>
+
+		<p:messages id="messages" />
+
+		<p:panelGrid columns="2">
+			<p:outputLabel for="id" value="ID:" />
+			<p:outputLabel id="id" value="#{cadastroPessoa.pessoa.id}" />
+
+			<p:outputLabel for="nome" value="Nome:" />
+			<p:inputText id="nome" value="#{cadastroPessoa.pessoa.nome}" />
+
+			<p:outputLabel for="nascimento" value="Data de nascimento: " />	
+			<p:calendar id="nascimento" value="#{cadastroPessoa.pessoa.nascimento}" pattern="MM/dd/yyyy" pagedate="#{cadastroPessoa.dataMaioridade}" />
+
+			<p:outputLabel for="observacao" value="Observação:" />
+			<p:textEditor id="observacao"
+				value="#{cadastroPessoa.pessoa.observacao}" height="250" />
+
+			<p:outputLabel for="sexo" value="Sexo:" />
+			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				<p:selectOneRadio id="sexo" value="#{cadastroPessoa.pessoa.sexo}">
+					<f:selectItem itemLabel="Masculino" itemValue="M" />
+					<f:selectItem itemLabel="Feminino" itemValue="F" />
+				</p:selectOneRadio>
+			</h:panelGrid>
+
+		</p:panelGrid>
+
+		<p:commandButton value="Cadastrar" action="#{cadastroPessoa.cadastrar()}" update="messages" />
+
+	</h:form>
+</h:body>
+</html>

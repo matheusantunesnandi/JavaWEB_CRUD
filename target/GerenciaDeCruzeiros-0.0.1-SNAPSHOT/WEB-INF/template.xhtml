@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="title">Default title</ui:insert></title>
+</h:head>
+<h:body>
+	<div id="header" align="center">
+		<H1 style="color: blue;">Gerência de Cruzeiros</H1>
+	</div>
+	<div id="menu">
+		<p:tabView>
+			<p:tab title="Cadastro de pessoas"><ui:include src="/cadastroPessoa.xhtml"/></p:tab>
+			<p:tab title="Cadastro de embarcações"></p:tab>
+			<p:tab title="Cadastro de cruzeiros"></p:tab>
+			<p:tabMenu>Teste b</p:tabMenu>
+		</p:tabView>
+	</div>
+	<div id="content">
+		<ui:insert name="content">Entre em contato conosco: +xx (xx) x xxxx-xxxx</ui:insert>
+	</div>
+	<div id="footer">
+		<header>
+			<H6>Página criada por Matheus A. Nandi</H6>
+		</header>
+	</div>
+</h:body>
+</html>

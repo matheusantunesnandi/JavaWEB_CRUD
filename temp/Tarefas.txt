@@ -1,0 +1,5 @@
+# Falta:
+- Tornar os caminhos absolutos em relativos (Código, xml, etc)
+- Converter para JSF 2.3 e ativar CDI (Adicionar no pom para funcionar o @Named no lugar de @ManagedBean);
+- Finalizar o projeto de exemplo em si (CRUD, relacionamento entre tabelas, cadastro, alocação, etc);
+- Implementar JUnity e sonarQuB;

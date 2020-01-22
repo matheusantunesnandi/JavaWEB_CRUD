@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+  <property name="hibernate.connection.url">jdbc:sqlite:/home/anmath/Documentos/git-workspace/JavaWEB_CRUD/Cruzeiro.sqlite3</property>
+<!--   <property name="hibernate.hbm2ddl.auto">create-drop</property> -->
+  <property name="hibernate.hbm2ddl.auto">update</property>
+  <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
+  <property name="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+  <property name="hibernate.format_sql">true</property>
+  <property name="hibernate.show_sql">true</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property>
+  <property name="hibernate.connection.autocommit">false</property>
+  <property name="hibernate.transaction.auto_close_session">false</property>
+  <property name="hibernate.transaction.flush_before_completion">false</property>
+  <!--   Mapping Java classes -->
+  <mapping class="model.entity.Pessoa"/>
+ </session-factory>
+</hibernate-configuration>

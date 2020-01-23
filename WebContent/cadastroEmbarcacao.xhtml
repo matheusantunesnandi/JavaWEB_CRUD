@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<h:form>
+
+		<p:messages id="messages" />
+
+		<p:panelGrid columns="2">
+			<p:outputLabel for="nome" value="Nome:" />
+			<p:inputText id="nome" value="#{cadastroEmbarcacao.embarcacao.nome}" />
+
+			<p:outputLabel for="tipo" value="Tipo:" />
+			<p:selectOneMenu id="tipo"
+				value="#{cadastroEmbarcacao.embarcacao.tipo}">
+				<f:selectItem itemLabel="Navio" itemValue="Navio" />
+				<f:selectItem itemLabel="Bote" itemValue="Bote" />
+				<f:selectItem itemLabel="Barco" itemValue="Barco" />
+				<f:selectItem itemLabel="Balsa" itemValue="Balsa" />
+				<f:selectItem itemLabel="Chata" itemValue="Chata" />
+				<f:selectItem itemLabel="Outro modelo não presente" itemValue="Outro" />
+			</p:selectOneMenu>
+
+			<p:outputLabel for="lotacaoMaxima" value="Lotação máxima:" />
+			<p:inputNumber id="lotacaoMaxima" value="#{cadastroEmbarcacao.embarcacao.lotacaoMaxima}" />
+
+		</p:panelGrid>
+
+		<p:commandButton value="Salvar" action="#{cadastroCruzeiro.salvar()}"
+			update="messages" />
+
+	</h:form>
+</h:body>
+</html>

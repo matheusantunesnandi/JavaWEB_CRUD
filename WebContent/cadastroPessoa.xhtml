@@ -8,19 +8,18 @@
 </h:head>
 
 <h:body>
-	<h:form>
+	<h:form id="principal">
 
 		<p:messages id="messages" />
 
 		<p:panelGrid columns="2">
-			<p:outputLabel for="id" value="ID:" />
-			<p:outputLabel id="id" value="#{cadastroPessoa.pessoa.id}" />
-
 			<p:outputLabel for="nome" value="Nome:" />
 			<p:inputText id="nome" value="#{cadastroPessoa.pessoa.nome}" />
 
-			<p:outputLabel for="nascimento" value="Data de nascimento: " />	
-			<p:calendar id="nascimento" value="#{cadastroPessoa.pessoa.nascimento}" pattern="MM/dd/yyyy" pagedate="#{cadastroPessoa.dataMaioridade}" />
+			<p:outputLabel for="nascimento" value="Data de nascimento:" />
+			<p:calendar id="nascimento"
+				value="#{cadastroPessoa.pessoa.nascimento}" pattern="MM/dd/yyyy"
+				pagedate="#{cadastroPessoa.dataMaioridade}" />
 
 			<p:outputLabel for="observacao" value="Observação:" />
 			<p:textEditor id="observacao"
@@ -28,7 +27,8 @@
 
 			<p:outputLabel for="sexo" value="Sexo:" />
 			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-				<p:selectOneRadio id="sexo" value="#{cadastroPessoa.pessoa.sexo}">
+				<p:selectOneRadio id="sexo" value="#{cadastroPessoa.pessoa.sexo}"
+					required="true" requiredMessage="É necessário escolher o sexo.">
 					<f:selectItem itemLabel="Masculino" itemValue="M" />
 					<f:selectItem itemLabel="Feminino" itemValue="F" />
 				</p:selectOneRadio>
@@ -36,7 +36,38 @@
 
 		</p:panelGrid>
 
-		<p:commandButton value="Cadastrar" action="#{cadastroPessoa.cadastrar()}" update="messages" />
+		<p:commandButton value="Salvar" action="#{cadastroPessoa.salvar()}"
+			update="principal" type="subimit" />
+
+		<p:separator />
+
+		<h:form id="form-listagem-pessoas">
+			<p:dataTable value="#{cadastroPessoa.pessoas}" var="Pessoa"
+				id="tabela-pessoas" paginator="true" rows="10"
+				tableStyle="table-layout: auto;">
+				<p:column>
+					<p:outputLabel value="#{Pessoa.id}" />
+				</p:column>
+				<p:column filterBy="#{Pessoa.nome}">
+					<p:outputLabel value="#{Pessoa.nome}" />
+				</p:column>
+				<p:column>
+					<p:outputLabel value="#{Pessoa.nascimento}" />
+				</p:column>
+				<p:column>
+					<p:outputLabel value="#{Pessoa.sexo}">
+						<f:converter converterId="conversorSexo" />
+					</p:outputLabel>
+				</p:column>
+				<p:column>
+					<p:commandButton value="Observações" onclick="PF('dlg1').show();" />
+					<p:dialog header="Obsevações:" widgetVar="dlg1" minHeight="40">
+						<p:textEditor value="#{Pessoa.observacao}" readonly="true"
+							toolbarVisible="false" />
+					</p:dialog>
+				</p:column>
+			</p:dataTable>
+		</h:form>
 
 	</h:form>
 </h:body>

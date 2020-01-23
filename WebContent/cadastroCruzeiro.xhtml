@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<h:form>
+
+		<p:messages id="messages" />
+
+		<p:panelGrid columns="2">
+			<p:outputLabel for="nome" value="Nome:" />
+			<p:inputText id="nome" value="#{cadastroCruzeiro.cruzeiro.nome}" />
+
+			<p:outputLabel for="inicio" value="Data de início:" />	
+			<p:calendar id="inicio" value="#{cadastroCruzeiro.cruzeiro.inicio}" pattern="MM/dd/yyyy" />
+			
+			<p:outputLabel for="termino" value="Data de término:" />	
+			<p:calendar id="termino" value="#{cadastroCruzeiro.cruzeiro.termino}" pattern="MM/dd/yyyy" />
+
+			<p:outputLabel for="descricao" value="Descrição" />
+			<p:textEditor id="descricao"
+				value="#{cadastroCruzeiro.cruzeiro.descricao}" height="250" />
+
+		</p:panelGrid>
+
+		<p:commandButton value="Salvar" action="#{cadastroCruzeiro.salvar()}" update="messages" />
+
+	</h:form>
+</h:body>
+</html>

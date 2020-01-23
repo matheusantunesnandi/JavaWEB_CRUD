@@ -5,8 +5,8 @@
  <session-factory>
   <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
   <property name="hibernate.connection.url">jdbc:sqlite:/home/anmath/Documentos/git-workspace/JavaWEB_CRUD/Cruzeiro.sqlite3</property>
-<!--   <property name="hibernate.hbm2ddl.auto">create-drop</property> -->
-  <property name="hibernate.hbm2ddl.auto">update</property>
+  <property name="hibernate.hbm2ddl.auto">create-drop</property>
+<!--   <property name="hibernate.hbm2ddl.auto">update</property> -->
   <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
   <property name="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
   <property name="hibernate.format_sql">true</property>
@@ -17,5 +17,7 @@
   <property name="hibernate.transaction.flush_before_completion">false</property>
   <!--   Mapping Java classes -->
   <mapping class="model.entity.Pessoa"/>
+  <mapping class="model.entity.Cruzeiro"/>
+  <mapping class="model.entity.Embarcacao"/>
  </session-factory>
 </hibernate-configuration>

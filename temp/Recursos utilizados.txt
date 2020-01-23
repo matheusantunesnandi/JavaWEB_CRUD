@@ -22,3 +22,5 @@
 # A serem implementados:
 - JSF 2.3;
 - CDI;
+- JUnity;
+- Sonar QuB;

@@ -1,5 +1,11 @@
 package model.dao;
 
+import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,11 +16,11 @@ public class DAOGenerico {
 
 	public static DAOGenerico daoGenerico = null;
 
-	private SessionFactory sessionFactory;
+	private SessionFactory sessaoFactory;
 	private Transaction transaction;
 
 	public DAOGenerico() {
-		sessionFactory = HibernateUtil.getSessionFactory();
+		sessaoFactory = HibernateUtil.getSessionFactory();
 	}
 
 	public static DAOGenerico getInstance() {
@@ -26,13 +32,46 @@ public class DAOGenerico {
 	}
 
 	public boolean inserir(Object o) {
+		return operacao(o);
+	}
+
+	public boolean atualizar(Object o) {
+		return operacao(o);
+	}
+
+	public boolean remover(Object o) {
+		return operacao(o);
+	}
+
+	public boolean operacao(Object o) {
+		return operacao(o, new Throwable().getStackTrace()[1].getMethodName());
+	}
+
+	public boolean operacao(Object o, String nomeDoMetoco) {
 		boolean retorno = false;
 
-		Session session = sessionFactory.openSession();
+		Session session = sessaoFactory.openSession();
 
 		try {
 			transaction = session.beginTransaction();
-			session.save(o);
+
+			switch (nomeDoMetoco) {
+			case "inserir":
+				session.save(o);
+
+				break;
+
+			case "atualizar":
+				session.update(o);
+
+				break;
+
+			case "remover":
+				session.remove(o);
+
+				break;
+			}
+			
 			transaction.commit();
 
 			retorno = true;
@@ -48,26 +87,58 @@ public class DAOGenerico {
 		return retorno;
 	}
 
-	public void transacao() {
+	/**
+	 * Retorna a lista de itens salvo no banco de dados de acordo com a Entidade
+	 * passada como parâmetro.
+	 * @param <T>
+	 * @param <T>
+	 * 
+	 * @param classe : Entidade que deverá buscar no banco de dados.
+	 * @return List contendo todos os objetos encontrados da entidade passada como
+	 *         parâmetro.
+	 */
+	public <T> List<T> listar(Class<T> classe) {
+		Session session = sessaoFactory.openSession();
+		
+		List<T> queryResult = null;
 
+		try {
+			transaction = session.beginTransaction();
+
+//			TODO listar (testar este)
+			queryResult = listar(classe, session);
+
+			
+			transaction.commit();
+
+		} catch (Exception e) {
+			transaction.getRollbackOnly();
+			e.printStackTrace();
+
+		} finally {
+			session.close();
+		}
+
+		return queryResult;
 	}
 
-	public boolean atualizar(Object o) {
-		// TODO hibernate atualizar(..)
-		return false;
-	}
-
-	public boolean remover(Object o) {
-		// TODO hibernate remover(..)
-		return false;
+	private <T> List<T> listar(Class<T> classe, Session session) {
+		List<T> queryResult;
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<T> criteria = builder.createQuery(classe);
+		Root<T> root = criteria.from(classe);
+		criteria.select(root);
+		
+		queryResult = session.createQuery(criteria).getResultList();
+		return queryResult;
 	}
 
 	public SessionFactory getSessionFactory() {
-		return sessionFactory;
+		return sessaoFactory;
 	}
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	public void setSessionFactory(SessionFactory sessaoFactory) {
+		this.sessaoFactory = sessaoFactory;
 	}
 
 	public Transaction getTransaction() {

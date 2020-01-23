@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
@@ -12,12 +13,14 @@ import util.PropriedadesProjeto;
 @ManagedBean
 public class CadastroPessoa {
 	
+	DAOGenerico daog = DAOGenerico.getInstance();
+	
 	private Integer maioridade = Integer.parseInt(PropriedadesProjeto.getTexto("Brasil.properties", "pessoa.maioridade"));
 	
 	private Pessoa pessoa = new Pessoa();
 	
-	public void cadastrar() {
-		DAOGenerico.getInstance().inserir(pessoa);
+	public void salvar() {
+		daog.inserir(pessoa);
 	}
 	
 	public Date getDataMaioridade() {
@@ -36,8 +39,7 @@ public class CadastroPessoa {
 		this.pessoa = pessoa;
 	}
 	
-	public void test() {
-		System.out.println(pessoa.getNome());
+	public List<Pessoa> getPessoas() {
+		return daog.listar(Pessoa.class);
 	}
-
 }

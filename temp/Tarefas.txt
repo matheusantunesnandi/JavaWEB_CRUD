@@ -1,9 +1,15 @@
-# Falta:
+# Falta (bugs):
 - Adcionar restrições ao cadastrar a pessoa(Not null, etc);
+- Filtro global;
+- Muitos selects repetidos do hibernate a cada ação na página:
 
-
-
+# Falta (Implementações):
+- Alterar todo texto estátio em páginas xhtml para arquivos *.properties de tradução ou mudar para fornecido por banco de dados;
 - Tornar os caminhos absolutos em relativos (Código, xml, etc)
 - Converter para JSF 2.3 e ativar CDI (Adicionar no pom para funcionar o @Named no lugar de @ManagedBean);
 - Finalizar o projeto de exemplo em si (CRUD, relacionamento entre tabelas, cadastro, alocação, etc);
 - Implementar JUnity e sonarQuB;
+
+
+# falta (Geral):
+- Baixar documentação de todos os frameworks, ides, etc (De preferência em PT-BR) para estudar offline (Como agora na praia com internet ruim);

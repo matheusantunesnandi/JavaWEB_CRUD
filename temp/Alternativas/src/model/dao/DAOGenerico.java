@@ -2,28 +2,28 @@ package model.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
+import model.entity.Pessoa;
 import util.HibernateUtil;
 
 public class DAOGenerico {
 
 	public static DAOGenerico daoGenerico = null;
-	private SessionFactory sessionFactory;
-	private EntityManagerFactory entityManagerFactory;
+
+	private SessionFactory sessaoFactory;
+	private Transaction transaction;
 
 	public DAOGenerico() {
-		sessionFactory = HibernateUtil.getSessionFactory();
-		entityManagerFactory = sessionFactory.openSession().getEntityManagerFactory();
+		sessaoFactory = HibernateUtil.getSessionFactory();
 	}
 
-// TODO: Testar se a cada chamada deste método está recuperando a primeira instancia criada ou sempre criando uma nova
 	public static DAOGenerico getInstance() {
 		if (daoGenerico == null) {
 			daoGenerico = new DAOGenerico();
@@ -45,44 +45,46 @@ public class DAOGenerico {
 	}
 
 	public boolean operacao(Object o) {
+		return operacao(o, new Throwable().getStackTrace()[1].getMethodName());
+	}
+
+	public boolean operacao(Object o, String nomeDoMetoco) {
 		boolean retorno = false;
 
-		String nomeMetodoAnterior = new Throwable().getStackTrace()[1].getMethodName();
-
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Session session = sessaoFactory.openSession();
 
 		try {
-			entityManager.getTransaction().begin();
+			transaction = session.beginTransaction();
 
-			switch (nomeMetodoAnterior) {
+			switch (nomeDoMetoco) {
 			case "inserir":
-				entityManager.persist(o);
+				session.save(o);
 
 				break;
 
 			case "atualizar":
-				entityManager.merge(o);
+				session.update(o);
 
 				break;
 
 			case "remover":
-				entityManager.remove(o);
+				Pessoa p = (Pessoa) o;
+				p.setId(1);
+				session.remove(o);
 
 				break;
 			}
 
-			entityManager.getTransaction().commit();
+			transaction.commit();
 
 			retorno = true;
 
 		} catch (Exception e) {
-			entityManager.getTransaction().rollback();
+			transaction.getRollbackOnly();
 			e.printStackTrace();
 
 		} finally {
-			// TODO: Validar alternativa de só fechar quando o a sessão fechar e se isto é
-			// uma melhor forma / viável.
-			entityManager.close();
+			session.close();
 		}
 
 		return retorno;
@@ -100,41 +102,47 @@ public class DAOGenerico {
 	 *         parâmetro.
 	 */
 	public <T> List<T> listar(Class<T> classe) {
+		Session session = sessaoFactory.openSession();
+
 		List<T> queryResult = null;
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-
 		try {
-			entityManager.getTransaction().begin();
+			transaction = session.beginTransaction();
 
-			CriteriaBuilder builder = entityManagerFactory.getCriteriaBuilder();
+			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<T> criteria = builder.createQuery(classe);
 			Root<T> root = criteria.from(classe);
 			criteria.select(root);
 
-			queryResult = entityManager.createQuery(criteria).getResultList();
+			queryResult = session.createQuery(criteria).getResultList();
 
-			entityManager.getTransaction().commit();
+			transaction.commit();
 
 		} catch (Exception e) {
-			entityManager.getTransaction().rollback();
+			transaction.getRollbackOnly();
 			e.printStackTrace();
 
 		} finally {
-			// TODO: Validar alternativa de só fechar quando o a sessão fechar e se isto é
-			// uma melhor forma / viável.
-			entityManager.close();
+			session.close();
 		}
 
 		return queryResult;
 	}
 
 	public SessionFactory getSessionFactory() {
-		return sessionFactory;
+		return sessaoFactory;
 	}
 
 	public void setSessionFactory(SessionFactory sessaoFactory) {
-		this.sessionFactory = sessaoFactory;
+		this.sessaoFactory = sessaoFactory;
+	}
+
+	public Transaction getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(Transaction transaction) {
+		this.transaction = transaction;
 	}
 
 }

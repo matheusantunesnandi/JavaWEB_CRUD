@@ -1,9 +1,13 @@
 # Falta (bugs):
-- Adcionar restrições ao cadastrar a pessoa(Not null, etc);
-- Filtro global;
-- Muitos selects repetidos do hibernate a cada ação na página:
+- Adcionar restrições ao cadastrar a pessoa(Not null, etc) (Atualmente está dando erro do hibernate ao criar ou alterar o banco de dados para adicionar a constraint. Bug nativo do hibernate? PrFoblema no SQL.DIALECT?);
+- Filtro global não funcionando;
+- Muitos selects repetidos do hibernate a cada ação na página;
+- Melhorar responsabilidade da página e preencher melhor os campos conforme o tamanho da tela e espaço disponível;
+- Em algum momento entre editar, salvar, remover. Não necessariamente nesta ordem, ao editar insere um novo;
 
 # Falta (Implementações):
+- Adicionar ícones adequados a cada botão na coluna ações em Cadastro de Pessoas;
+- IReport;
 - Alterar todo texto estátio em páginas xhtml para arquivos *.properties de tradução ou mudar para fornecido por banco de dados;
 - Tornar os caminhos absolutos em relativos (Código, xml, etc)
 - Converter para JSF 2.3 e ativar CDI (Adicionar no pom para funcionar o @Named no lugar de @ManagedBean);

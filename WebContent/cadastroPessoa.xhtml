@@ -8,93 +8,114 @@
 </h:head>
 
 <h:body>
-	<h:form id="formCadastro">
-		<p:messages id="messages" />
+	<p:panel id="panelCadastro">
 
-		<p:panelGrid columns="2">
-			<p:outputLabel for="id" value="ID:" />
-			<p:inputText id="id" value="#{cadastroPessoa.pessoa.id}"
-				disabled="true" />
+		<h:form id="formCadastro">
 
-			<p:outputLabel for="nome" value="Nome:" />
-			<p:inputText id="nome" value="#{cadastroPessoa.pessoa.nome}"
-				required="true" requiredMessage="É necessário informar um nome" />
+			<p:messages id="messages" />
 
-			<p:outputLabel for="nascimento" value="Data de nascimento:" />
-			<p:calendar id="nascimento"
-				value="#{cadastroPessoa.pessoa.nascimento}" pattern="MM/dd/yyyy"
-				pagedate="#{cadastroPessoa.dataMaioridade}" required="true"
-				requiredMessage="É necessário definir a data de nascimento." />
+			<p:panelGrid columns="2">
+				<p:outputLabel for="id" value="ID:" />
+				<p:inputText id="id" value="#{cadastroPessoa.pessoa.id}"
+					disabled="true" />
 
-			<p:outputLabel for="observacao" value="Observação:" />
-			<p:textEditor id="observacao"
-				value="#{cadastroPessoa.pessoa.observacao}" height="250" />
+				<p:outputLabel for="nome" value="Nome:" />
+				<p:inputText id="nome" value="#{cadastroPessoa.pessoa.nome}"
+					required="true" requiredMessage="É necessário informar um nome" />
 
-			<p:outputLabel for="sexo" value="Sexo:" />
-			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-				<p:selectOneRadio id="sexo" value="#{cadastroPessoa.pessoa.sexo}"
-					required="true" requiredMessage="É necessário escolher o sexo.">
-					<f:selectItem itemLabel="Masculino" itemValue="M" />
-					<f:selectItem itemLabel="Feminino" itemValue="F" />
-				</p:selectOneRadio>
-			</h:panelGrid>
+				<p:outputLabel for="nascimento" value="Data de nascimento:" />
+				<p:calendar id="nascimento"
+					value="#{cadastroPessoa.pessoa.nascimento}" pattern="MM/dd/yyyy"
+					pagedate="#{cadastroPessoa.dataMaioridade}" required="true"
+					requiredMessage="É necessário definir a data de nascimento." />
 
+				<p:outputLabel for="observacao" value="Observação:" />
+				<p:textEditor id="observacao"
+					value="#{cadastroPessoa.pessoa.observacao}" height="250" />
+
+				<p:outputLabel for="sexo" value="Sexo:" />
+				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+					<p:selectOneRadio id="sexo" value="#{cadastroPessoa.pessoa.sexo}"
+						required="true" requiredMessage="É necessário escolher o sexo.">
+						<f:selectItem itemLabel="Masculino" itemValue="M" />
+						<f:selectItem itemLabel="Feminino" itemValue="F" />
+					</p:selectOneRadio>
+				</h:panelGrid>
+
+			</p:panelGrid>
+
+		</h:form>
+
+		<br />
+
+		<p:panelGrid>
+			<p:commandButton value="Salvar" action="#{cadastroPessoa.salvar()}"
+				update="formCadastro, panelListagem" icon="pi pi-save" />
+
+			<p:commandButton value="Cancelar"
+				action="#{cadastroPessoa.cancelar()}" update="panelCadastro"
+				rendered="#{cadastroPessoa.editando}"  type="button "/>
 		</p:panelGrid>
-	</h:form>
 
-	<p:commandButton value="Salvar" action="#{cadastroPessoa.salvar()}"
-		update="formCadastro, formListagem" />
 
-	<p:separator />
+	</p:panel>
 
-	<h:form id="formFiltros">
-		<p:outputLabel value="Filtro global: " />
-		<p:inputText onkeyup="PF('tabelaPessoas').filter()"
-			id="filtroGlobalPessoa" />
-	</h:form>
+	<br />
 
-	<h:form id="formListagem">
+	<p:panel id="panelListagem">
+		<h:form id="formFiltros">
+			<p:outputLabel value="Filtro global: " />
+			<p:inputText onkeyup="PF('tabelaPessoas').filter()"
+				id="filtroGlobalPessoa" />
+		</h:form>
 
-		<p:dataTable var="Pessoa" value="#{cadastroPessoa.pessoas}"
-			widgetVar="tabelaPessoas" paginator="true" rows="10"
-			emptyMessage="Nenhuma pessoa cadastrada."
-			tableStyle="table-layout: auto;">
+		<br />
 
-			<p:column headerText="ID">
-				<p:outputLabel value="#{Pessoa.id}" />
-			</p:column>
+		<h:form id="formListagem">
 
-			<p:column headerText="Nome" filterBy="#{Pessoa.nome}">
-				<p:outputLabel value="#{Pessoa.nome}" />
-			</p:column>
+			<p:dataTable var="Pessoa" value="#{cadastroPessoa.pessoas}"
+				widgetVar="tabelaPessoas" paginator="true" rows="10"
+				emptyMessage="Nenhuma pessoa cadastrada."
+				tableStyle="table-layout: auto;">
 
-			<p:column headerText="Nascimento">
-				<p:outputLabel value="#{Pessoa.nascimento}" pattern="MM/dd/yyyy" />
-			</p:column>
+				<p:column headerText="ID">
+					<p:outputLabel value="#{Pessoa.id}" />
+				</p:column>
 
-			<p:column headerText="Sexo">
-				<p:outputLabel value="#{Pessoa.sexo}">
-					<f:converter converterId="conversorSexo" />
-				</p:outputLabel>
-			</p:column>
+				<p:column headerText="Nome" filterBy="#{Pessoa.nome}">
+					<p:outputLabel value="#{Pessoa.nome}" />
+				</p:column>
 
-			<p:column headerText="Ações">
-				<p:commandButton value="Observação" onclick="PF('dlg1').show();" />
-				<p:dialog header="Obsevações:" widgetVar="dlg1" minHeight="40">
-					<p:textEditor value="#{Pessoa.observacao}" readonly="true"
-						toolbarVisible="false" />
-				</p:dialog>
-				<!-- TODO: Validar o uso de ajax="false" nos dois botões-->
-				<p:commandButton value="Editar"
-					action="#{cadastroPessoa.editar(Pessoa)}" update="formCadastro"
-					ajax="false" />
-				<p:commandButton value="Remover"
-					action="#{cadastroPessoa.remover(Pessoa)}" update="formListagem"
-					ajax="false" />
-			</p:column>
+				<p:column headerText="Nascimento">
+					<p:outputLabel value="#{Pessoa.nascimento}">
+						<f:convertDateTime type="date" pattern="yyyy-MM-dd" />
+					</p:outputLabel>
+				</p:column>
 
-		</p:dataTable>
-	</h:form>
+				<p:column headerText="Sexo">
+					<p:outputLabel value="#{Pessoa.sexo}">
+						<f:converter converterId="conversorSexo" />
+					</p:outputLabel>
+				</p:column>
 
+				<p:column headerText="Ações">
+					<p:commandButton value="Observação" onclick="PF('dlg1').show();" />
+					<p:dialog header="Obsevações:" widgetVar="dlg1" minHeight="40">
+						<p:textEditor value="#{Pessoa.observacao}" readonly="true"
+							toolbarVisible="false" />
+					</p:dialog>
+					<!-- TODO: Validar o uso de ajax="false" nos dois botões-->
+					<p:commandButton value="Editar"
+						action="#{cadastroPessoa.editar(Pessoa)}" update="formCadastro"
+						ajax="false" />
+					<p:commandButton value="Remover"
+						action="#{cadastroPessoa.remover(Pessoa)}" update="formListagem"
+						ajax="false" />
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</p:panel>
 </h:body>
 </html>

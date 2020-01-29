@@ -21,6 +21,7 @@
 
 
 # A serem implementados:
+- IReport;
 - JSF 2.3;
 - CDI;
 - JUnity;

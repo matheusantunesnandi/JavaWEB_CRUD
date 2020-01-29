@@ -17,11 +17,11 @@ public class DAOGenerico {
 
 	public static DAOGenerico daoGenerico = null;
 
-	private SessionFactory sessaoFactory;
+	private SessionFactory sessionFactory;
 	private Transaction transaction;
 
 	public DAOGenerico() {
-		sessaoFactory = HibernateUtil.getSessionFactory();
+		sessionFactory = HibernateUtil.getSessionFactory();
 	}
 
 	public static DAOGenerico getInstance() {
@@ -51,7 +51,7 @@ public class DAOGenerico {
 	public boolean operacao(Object o, String nomeDoMetoco) {
 		boolean retorno = false;
 
-		Session session = sessaoFactory.openSession();
+		Session session = sessionFactory.openSession();
 
 		try {
 			transaction = session.beginTransaction();
@@ -102,7 +102,7 @@ public class DAOGenerico {
 	 *         parâmetro.
 	 */
 	public <T> List<T> listar(Class<T> classe) {
-		Session session = sessaoFactory.openSession();
+		Session session = sessionFactory.openSession();
 
 		List<T> queryResult = null;
 
@@ -130,11 +130,11 @@ public class DAOGenerico {
 	}
 
 	public SessionFactory getSessionFactory() {
-		return sessaoFactory;
+		return sessionFactory;
 	}
 
-	public void setSessionFactory(SessionFactory sessaoFactory) {
-		this.sessaoFactory = sessaoFactory;
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 	public Transaction getTransaction() {

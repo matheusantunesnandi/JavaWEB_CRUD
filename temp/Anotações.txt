@@ -1,0 +1,33 @@
+Anotações:
+
+# Sobre o uso de JTA ou JPA:
+	O Session e EntityManager são gerados das classes SessionFactory e EntityManagerFactory.
+	
+	Sobre a construção do SessionFactory:
+		Método alternativo:
+		Pode ser construído em memória sendo montado em uma classe Java como mostrado no método alternativo dentro de HibernateUtil.java.
+		
+		Método tradicional:
+		Também pode ser construído a partir de um arquivo externo chamado hibernate.cfg.xml. Este é o método tradicional e recomendável, eu creio, pois se alguém
+		não possuir acesso aos códigos fonte em Java do projeto, este ficará impedido de alterar os parâmetros do hibernate e ter complicações com o banco.
+		Com um arquivo externo é possível editar sem ter acesso ao código-fonte do Java (Não binários).
+		
+	
+	Sobre a construção do EntityManagerFactory:
+		Método tradicional:
+		Construído a partirde arquivo externo chamado persistence.xml. Semelhantemente ao método tradicional do SessionFactory mencionado acima, tratando-se de arquivo um
+		externo é possível que alguém sem acesso ao código-fonte (Não binário) do projeto possa fazer alterações de configurações sem alterar o código.
+	
+		É feito da seguinte maneira (Não possui exemplos implementados neste projeto-base)
+			Persistence.createEntityManagerFactory("example-unit");
+	
+		Método alternativo (Usado neste projeto-base):
+		Através do SessionFactory é possível construir o EntityManagerFactory que por fim construirá o EntityManager.
+		
+	Sobre a construção do Session e seu uso:
+		É construído a partir do SessionFactory (usado atualmente neste projeto para construir o EntityManagerFactory). 
+		É chamado o método openSession() do sessionFactory.
+		
+		O seu uso é semelhante ao uso do EntityManager, porém com métodos e implementações diferentes.
+		O escopo dentro do DAOGenerico é feito da mesma forma.
+		Na pasta temp há um exemplo usando este método. Um DAOGenerico totalmente funcional e alternativo.

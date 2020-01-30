@@ -19,7 +19,7 @@ public class Embarcacao implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	@Column
 	private Date criacao = new Date();
@@ -36,11 +36,14 @@ public class Embarcacao implements Serializable {
 	@Column
 	private Integer lotacaoMaxima;
 
-	public Long getId() {
+	@Column
+	private Double pesoMaximo;
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -82,5 +85,13 @@ public class Embarcacao implements Serializable {
 
 	public void setLotacaoMaxima(Integer lotacaoMaxima) {
 		this.lotacaoMaxima = lotacaoMaxima;
+	}
+
+	public Double getPesoMaximo() {
+		return pesoMaximo;
+	}
+
+	public void setPesoMaximo(Double pesoMaximo) {
+		this.pesoMaximo = pesoMaximo;
 	}
 }

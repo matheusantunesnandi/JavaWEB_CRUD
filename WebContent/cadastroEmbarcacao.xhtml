@@ -8,32 +8,112 @@
 </h:head>
 
 <h:body>
-	<h:form>
+	<h:form id="formCadastroEmbarcacao">
 
-		<p:messages id="messages" />
+		<p:messages id="messagesEmbarcacao" />
 
 		<p:panelGrid columns="2">
+			<p:outputLabel for="id" value="ID:" />
+			<p:inputText id="id" value="#{cadastroEmbarcacao.embarcacao.id}"
+				disabled="true" />
+
 			<p:outputLabel for="nome" value="Nome:" />
-			<p:inputText id="nome" value="#{cadastroEmbarcacao.embarcacao.nome}" />
+			<p:inputText id="nome" value="#{cadastroEmbarcacao.embarcacao.nome}"
+				required="true" requiredMessage="Necessário informar o nome." />
 
 			<p:outputLabel for="tipo" value="Tipo:" />
 			<p:selectOneMenu id="tipo"
-				value="#{cadastroEmbarcacao.embarcacao.tipo}">
+				value="#{cadastroEmbarcacao.embarcacao.tipo}" required="true"
+				requiredMessage="Necessário informar o tipo.">
 				<f:selectItem itemLabel="Navio" itemValue="Navio" />
 				<f:selectItem itemLabel="Bote" itemValue="Bote" />
 				<f:selectItem itemLabel="Barco" itemValue="Barco" />
 				<f:selectItem itemLabel="Balsa" itemValue="Balsa" />
 				<f:selectItem itemLabel="Chata" itemValue="Chata" />
-				<f:selectItem itemLabel="Outro modelo não presente" itemValue="Outro" />
+				<f:selectItem itemLabel="Caravela" itemValue="Caravela" />
+				<f:selectItem itemLabel="Outro modelo não presente"
+					itemValue="Outro" />
 			</p:selectOneMenu>
 
 			<p:outputLabel for="lotacaoMaxima" value="Lotação máxima:" />
-			<p:inputNumber id="lotacaoMaxima" value="#{cadastroEmbarcacao.embarcacao.lotacaoMaxima}" />
+			<p:inputNumber id="lotacaoMaxima"
+				value="#{cadastroEmbarcacao.embarcacao.lotacaoMaxima}"
+				required="true"
+				requiredMessage="Necessário informar a lotação máxima." />
+
+			<p:outputLabel for="pesoMaximo" value="Peso máximo (kg):" />
+			<p:inputNumber id="pesoMaximo"
+				value="#{cadastroEmbarcacao.embarcacao.pesoMaximo}" required="true"
+				requiredMessage="Necessário informar o peso máximo." />
 
 		</p:panelGrid>
 
-		<p:commandButton value="Salvar" action="#{cadastroCruzeiro.salvar()}"
-			update="messages" />
+		<br />
+
+		<p:panelGrid>
+			<p:commandButton value="Salvar"
+				action="#{cadastroEmbarcacao.salvar()}"
+				update="tabViewTemplate:formCadastroEmbarcacao, tabViewTemplate:formListagemEmbarcacao:tabelaEmbarcacoes" />
+
+			<p:commandButton value="Cancelar"
+				action="#{cadastroEmbarcacao.cancelar()}"
+				update="formCadastroEmbarcacao"
+				rendered="#{cadastroEmbarcacao.editando}" />
+		</p:panelGrid>
+	</h:form>
+
+	<br />
+	<p:separator />
+	<br />
+
+	<h:form id="formListagemEmbarcacao">
+
+		<h:form id="formFiltrosEmbarcacao">
+			<p:outputLabel value="Filtro global: " />
+			<p:inputText onkeyup="PF('tabelaEmbarcacoes').filter()"
+				id="filtroGlobalEmbarcacao" />
+		</h:form>
+
+		<br />
+
+		<p:dataTable var="Embarcacao"
+			value="#{cadastroEmbarcacao.embarcacoes}" id="tabelaEmbarcacoes"
+			paginator="true" rows="10"
+			emptyMessage="Nenhuma embarcação cadastrada."
+			tableStyle="table-layout: auto;">
+
+			<p:column headerText="ID">
+				<p:outputLabel value="#{Embarcacao.id}" />
+			</p:column>
+
+			<p:column headerText="Nome" filterBy="#{Embarcacao.nome}">
+				<p:outputLabel value="#{Embarcacao.nome}" />
+			</p:column>
+
+			<p:column headerText="Tipo" filterBy="#{Embarcacao.tipo}">
+				<p:outputLabel value="#{Embarcacao.tipo}" />
+			</p:column>
+
+			<p:column headerText="Lotação Max.">
+				<p:outputLabel value="#{Embarcacao.lotacaoMaxima}" />
+			</p:column>
+
+			<p:column headerText="Peso Max">
+				<p:outputLabel value="#{Embarcacao.pesoMaximo}" />
+			</p:column>
+
+			<p:column headerText="Ações">
+				<!-- TODO: Validar o uso de ajax="false" nos dois botões-->
+				<p:commandButton value="Editar"
+					action="#{cadastroEmbarcacao.editar(Embarcacao)}"
+					update="tabViewTemplate:formCadastroEmbarcacao" />
+
+				<p:commandButton value="Remover"
+					action="#{cadastroEmbarcacao.remover(Embarcacao)}"
+					update="tabViewTemplate:formListagemEmbarcacao:tabelaEmbarcacoes" />
+			</p:column>
+
+		</p:dataTable>
 
 	</h:form>
 </h:body>

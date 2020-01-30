@@ -133,8 +133,15 @@ public class DAOGenerico {
 		return sessionFactory;
 	}
 
-	public void setSessionFactory(SessionFactory sessaoFactory) {
-		this.sessionFactory = sessaoFactory;
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
+	public EntityManagerFactory getEntityManagerFactory() {
+		return entityManagerFactory;
+	}
+
+	public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
+		this.entityManagerFactory = entityManagerFactory;
+	}
 }

@@ -48,6 +48,7 @@ public class HibernateUtil {
 		HashMap<String, String> settings = new HashMap<>();
 		settings.put("hibernate.connection.driver_class", "org.sqlite.JDBC");
 		settings.put("hibernate.connection.url", "jdbc:sqlite:" + CAMINHO_DB);
+//		settings.put("hibernate.hbm2ddl.auto", "none");
 		settings.put("hibernate.hbm2ddl.auto", "update");
 //		settings.put("hibernate.hbm2ddl.auto", "create-drop");
 		settings.put("hibernate.cache.provider_class", "org.hibernate.cache.NoCacheProvider");

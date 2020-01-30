@@ -23,9 +23,19 @@ public class CadastroPessoa {
 
 	private Pessoa pessoa = new Pessoa();
 
+	private List<Pessoa> pessoas;
+
+	/**
+	 * Realiza a consulta das pessoas contidas no banco e insere na variável global
+	 * "pessoas" para evitar futuras consultas no banco a cada interação do usuário.
+	 */
+	public CadastroPessoa() {
+		pessoas = carregarPessoas();
+	}
+
 	private boolean isEditando = false;
 
-	public List<Pessoa> getPessoas() {
+	public List<Pessoa> carregarPessoas() {
 		return DAOGenerico.getInstance().listar(Pessoa.class);
 	}
 
@@ -35,9 +45,12 @@ public class CadastroPessoa {
 
 		if (pessoa.getId() == null) {
 			DAOGenerico.getInstance().inserir(pessoa);
+			pessoas.add(pessoa);
 			pessoa = new Pessoa();
 
 		} else {
+			// Tratando-se de ponteiros de memória, ao editar uma pessoa a mesma será
+			// editada na lista em memória. Não somente o banco de dados.
 			DAOGenerico.getInstance().atualizar(pessoa);
 			cancelar();
 		}
@@ -50,6 +63,7 @@ public class CadastroPessoa {
 
 	public void remover(Pessoa p) {
 		DAOGenerico.getInstance().remover(p);
+		pessoas.remove(p);
 
 		if (pessoa.getId() == p.getId())
 			cancelar();
@@ -98,5 +112,13 @@ public class CadastroPessoa {
 
 	public void setEditando(boolean isEditando) {
 		this.isEditando = isEditando;
+	}
+
+	public List<Pessoa> getPessoas() {
+		return pessoas;
+	}
+
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
 	}
 }

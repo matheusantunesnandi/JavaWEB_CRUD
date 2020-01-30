@@ -1,0 +1,14 @@
+API de persistência Java - Tutorial
+https://www.vogella.com/tutorials/JavaPersistenceAPI/article.html
+
+Conflito com hibernate anotations e core nas novas versões (Solucionado)
+https://stackoverflow.com/questions/35981363/getting-error-java-lang-noclassdeffounderror-org-hibernate-cfg-mappings-in-a
+
+CDI (Para JSF 2.3)
+https://blog.caelum.com.br/use-cdi-no-seu-proximo-projeto-java/
+
+DDL execution was not in auto-commit mode;
+https://docs.jboss.org/hibernate/ogm/4.0/reference/en-US/html/ogm-configuration.html#ogm-configuration-environments
+
+Markdown para README.md do Github:
+https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#html

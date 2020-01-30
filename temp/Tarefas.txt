@@ -1,15 +1,19 @@
 # Falta (bugs):
-- Adcionar restrições ao cadastrar a pessoa(Not null, etc) (Atualmente está dando erro do hibernate ao criar ou alterar o banco de dados para adicionar a constraint. Bug nativo do hibernate? PrFoblema no SQL.DIALECT?);
+- Filtros dos dataTable pararam de funcionar;
+- Mensagem da Maioridade não está aparecendo.
+- Em "Cadastro de Pessoa" o botão obervações da coluna ação está mostrando sempre a mesma observação para todas as linhas (Problemas com update do elemento p:dialog? Ele é estático quando gerado? Fica com o primeiro dado no momento da criação;
 - Filtro global não funcionando;
-- Muitos selects repetidos do hibernate a cada ação na página;
-- Melhorar responsabilidade da página e preencher melhor os campos conforme o tamanho da tela e espaço disponível;
 - Em algum momento entre editar, salvar, remover. Não necessariamente nesta ordem, ao editar insere um novo;
+- Adcionar restrições ao cadastrar a pessoa(Not null, unique, etc) (Atualmente está dando erro do hibernate ao criar ou alterar o banco de dados para adicionar a constraint. Bug nativo do hibernate? PrFoblema no SQL.DIALECT?) (Mesmo para outras entidades);
 
 # Falta (Implementações):
+- Adicionar logo
+- Unificar os métodos comuns e repetidos dos ManagedBeans em uma interface;
 - Adicionar ícones adequados a cada botão na coluna ações em Cadastro de Pessoas;
 - IReport;
 - Alterar todo texto estátio em páginas xhtml para arquivos *.properties de tradução ou mudar para fornecido por banco de dados;
 - Tornar os caminhos absolutos em relativos (Código, xml, etc)
+- Melhorar responsabilidade da página e preencher melhor os campos conforme o tamanho da tela e espaço disponível;
 - Converter para JSF 2.3 e ativar CDI (Adicionar no pom para funcionar o @Named no lugar de @ManagedBean);
 - Finalizar o projeto de exemplo em si (CRUD, relacionamento entre tabelas, cadastro, alocação, etc);
 - Implementar JUnity e sonarQuB;

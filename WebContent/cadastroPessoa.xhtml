@@ -73,13 +73,15 @@
 		<p:dataTable var="Pessoa" value="#{cadastroPessoa.pessoas}"
 			id="tabelaPessoas" paginator="true" rows="10"
 			emptyMessage="Nenhuma pessoa cadastrada."
-			tableStyle="table-layout: auto;" widgetVar="tabelaPessoas">
+			tableStyle="table-layout: auto;" widgetVar="tabelaPessoas"
+			filteredValue="#{cadastroPessoa.pessoasFiltradas}">
 
 			<p:column headerText="ID">
 				<p:outputLabel value="#{Pessoa.id}" />
 			</p:column>
 
-			<p:column headerText="Nome" filterBy="#{Pessoa.nome}">
+			<p:column headerText="Nome" filterBy="#{Pessoa.nome}"
+				filterMatchMode="contains" >
 				<p:outputLabel value="#{Pessoa.nome}" />
 			</p:column>
 

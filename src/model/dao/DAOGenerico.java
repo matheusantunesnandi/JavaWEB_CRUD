@@ -14,7 +14,9 @@ import util.HibernateUtil;
 
 public class DAOGenerico {
 
+	// Declaração estática do DAOGenerico para que o mesmo seja compartilhado entre todas as sessões que poderão ser abertas via navegador.
 	public static DAOGenerico daoGenerico = null;
+	
 	private SessionFactory sessionFactory;
 	private EntityManagerFactory entityManagerFactory;
 
@@ -23,7 +25,8 @@ public class DAOGenerico {
 		entityManagerFactory = sessionFactory.openSession().getEntityManagerFactory();
 	}
 
-// TODO: Testar se a cada chamada deste método está recuperando a primeira instancia criada ou sempre criando uma nova
+	// Método para recuperar o DAOGenerico compartilhado, pois a cada sessão um novo DAO seria criado, porém é recuperado o que estiver em memória.
+	// Evia que várias conexões prncipais sejam abertas com o mesmo banco. Todavia as requisições são feitas e fechadas em cada ação de cada sessão aberta.
 	public static DAOGenerico getInstance() {
 		if (daoGenerico == null) {
 			daoGenerico = new DAOGenerico();

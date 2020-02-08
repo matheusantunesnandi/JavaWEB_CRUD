@@ -24,6 +24,7 @@ public class CadastroPessoa {
 	private Pessoa pessoa = new Pessoa();
 
 	private List<Pessoa> pessoas;
+	private List<Pessoa> pessoasFiltradas;
 
 	/**
 	 * Realiza a consulta das pessoas contidas no banco e insere na variável global
@@ -120,5 +121,13 @@ public class CadastroPessoa {
 
 	public void setPessoas(List<Pessoa> pessoas) {
 		this.pessoas = pessoas;
+	}
+
+	public List<Pessoa> getPessoasFiltradas() {
+		return pessoasFiltradas;
+	}
+
+	public void setPessoasFiltradas(List<Pessoa> pessoasFiltradas) {
+		this.pessoasFiltradas = pessoasFiltradas;
 	}
 }

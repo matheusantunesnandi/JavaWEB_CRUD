@@ -1,23 +1,28 @@
+# Geral:
+- Baixar documentação de todos os recursos utilizados para consulta offline;
+
+
 # Falta (bugs):
 - Filtros dos dataTable pararam de funcionar;
 - Mensagem da Maioridade não está aparecendo.
-- Em "Cadastro de Pessoa" o botão obervações da coluna ação está mostrando sempre a mesma observação para todas as linhas (Problemas com update do elemento p:dialog? Ele é estático quando gerado? Fica com o primeiro dado no momento da criação;
+- "Observações" em "Cadastro de Pessoa" o botão da coluna ação está mostrando sempre a mesma observação para todas as linhas (Problemas com update do elemento p:dialog? Ele é estático quando gerado? Fica com o primeiro dado no momento da criação
 - Filtro global não funcionando;
 - Em algum momento entre editar, salvar, remover. Não necessariamente nesta ordem, ao editar insere um novo;
 - Adcionar restrições ao cadastrar a pessoa(Not null, unique, etc) (Atualmente está dando erro do hibernate ao criar ou alterar o banco de dados para adicionar a constraint. Bug nativo do hibernate? PrFoblema no SQL.DIALECT?) (Mesmo para outras entidades);
 
-# Falta (Implementações):
-- Adicionar logo
-- Unificar os métodos comuns e repetidos dos ManagedBeans em uma interface;
+
+# Ajustar / Melhorar:
+- Unificar os métodos com1uns e repetidos dos ManagedBeans em uma interface;
+- Alterar todo texto estátio em páginas xhtml para arquivos *.properties de tradução ou mudar para fornecido por banco de dados;
+- Tornar os caminhos absolutos em relativos (Código, xml, etc) (Alterar o Hibernate para o método tradicional se conseguir por caminho relativo do banco e não absoluto);
+
+# Implementar (Em andamento):
+- Tela de cadastro de Cruzeiro;
+
+# Implementar (NOVO):
+- Finalizar o projeto de exemplo em si (CRUD, relacionamento entre tabelas, cadastro, alocação, etc);
 - Adicionar ícones adequados a cada botão na coluna ações em Cadastro de Pessoas;
 - IReport;
-- Alterar todo texto estátio em páginas xhtml para arquivos *.properties de tradução ou mudar para fornecido por banco de dados;
-- Tornar os caminhos absolutos em relativos (Código, xml, etc)
 - Melhorar responsabilidade da página e preencher melhor os campos conforme o tamanho da tela e espaço disponível;
-- Converter para JSF 2.3 e ativar CDI (Adicionar no pom para funcionar o @Named no lugar de @ManagedBean);
-- Finalizar o projeto de exemplo em si (CRUD, relacionamento entre tabelas, cadastro, alocação, etc);
 - Implementar JUnity e sonarQuB;
-
-
-# falta (Geral):
-- Baixar documentação de todos os frameworks, ides, etc (De preferência em PT-BR) para estudar offline (Como agora na praia com internet ruim);
+- Converter para JSF 2.3 e ativar CDI (Adicionar no pom para funcionar o @Named no lugar de @ManagedBean);

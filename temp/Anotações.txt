@@ -1,5 +1,8 @@
 Anotações:
 
+# Como acessar o servidor apos iniciar:
+	http://localhost:8080/GerenciaDeCruzeiros/
+
 # Sobre o uso de JTA ou JPA:
 	O Session e EntityManager são gerados das classes SessionFactory e EntityManagerFactory.
 	
